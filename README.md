@@ -25,18 +25,9 @@ CCGuard 把节点、时区、网络检查和 Claude Code 启动串成一个流�
 | 轻量浮窗 | 圆形磨砂玻璃、70% 背景透明、白字，仅显示状态和出口 IP；可拖动、双击及右键操作 |
 | 辅助窗口收起 | 四步通过后收起检测及辅助窗口，VS Code 留在前台 |
 
-```mermaid
-flowchart LR
-    A[节点与路由] --> B[纽约时区]
-    B --> C[启动网站检查]
-    C --> D[Claude Code 对话页]
-    D --> E[无刷新后台守护]
-    E --> F{关键状态}
-    F -->|通过| E
-    F -->|暂未确认| G[10秒后重试]
-    G --> E
-    F -->|确认异常或重试到期| H[关闭全部 VS Code]
-```
+启动流程：节点与路由 → 纽约时区 → 启动网站检查 → Claude Code 对话页 → 后台守护。
+
+守护结果：通过则继续；暂时无法确认则每 10 秒重试；确认异常或连续 120 秒未恢复则关闭全部受管 VS Code。
 
 ## 快速开始
 
@@ -56,11 +47,11 @@ flowchart LR
 ```sh
 git clone https://github.com/zhongqingqiang01-ship-it/CCGuard.git
 cd CCGuard
-scripts/check.sh
-scripts/build.sh
+zsh scripts/check.sh
+zsh scripts/build.sh
 ```
 
-运行 `dist/CC登录器.app`。`NODE_BIN=/path/to/node scripts/check.sh` 可指定 Node。版本和构建号维护在 `Resources/Info.plist`。
+运行 `dist/CC登录器.app`。`NODE_BIN=/path/to/node zsh scripts/check.sh` 可指定 Node。版本和构建号维护在 `Resources/Info.plist`。
 
 默认测试使用脱敏样例，不打开网站、不登录外部账号、不启动或关闭真实 VS Code。`scripts/verify-watchdog.py` 使用独立测试进程检查守护行为；完整实际启停验收应先保存工作并明确授权。
 

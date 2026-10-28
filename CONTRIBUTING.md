@@ -1,6 +1,6 @@
 # Contributing
 
-Run `scripts/check.sh`, `python3 scripts/audit-public.py`, and `scripts/build.sh` before submitting a change. Use Node.js 22+ and Swift 6+. The default tests are offline and do not operate real VS Code.
+Run `zsh scripts/check.sh`, `python3 scripts/audit-public.py`, and `zsh scripts/build.sh` before submitting a change. Use Node.js 22+ and Swift 6+. The default tests are offline and do not operate real VS Code.
 
 Keep reputation checks startup-only, domestic split routing allowed, runtime probes free of page refresh, and stale/partial observations unable to renew permission. Do not replace unavailable observations with success. Preserve process identity and descendant checks.
 

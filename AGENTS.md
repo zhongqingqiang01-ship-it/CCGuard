@@ -1,6 +1,6 @@
 # CCGuard development rules
 
-This is a macOS Swift package. Application adapters are in Sources/CCGuardApp; pure policy is in Sources/CCGuardCore. Run scripts/check.sh with Node.js 22+ and Swift 6+. Build with scripts/build.sh; output is dist/CC登录器.app. Version metadata is Resources/Info.plist.
+This is a macOS Swift package. Application adapters are in Sources/CCGuardApp; pure policy is in Sources/CCGuardCore. Run zsh scripts/check.sh with Node.js 22+ and Swift 6+. Build with zsh scripts/build.sh; output is dist/CC登录器.app. Version metadata is Resources/Info.plist.
 
 Startup gates run in order. Score must exceed 90. Reputation/residential/region checks run only at startup. Runtime uses fresh background requests and DNS/WebRTC probes without page navigation. Domestic IPv4 can differ under split routing; only Claude and Cloudflare exits must match the configured IPv4. Confirmed violations revoke immediately; unavailable observations retry every 10 seconds for at most 120 seconds without partial results extending the deadline.
 
