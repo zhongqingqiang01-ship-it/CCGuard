@@ -1,0 +1,34 @@
+name: Verify public source
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Review public export
+        run: python3 scripts/audit-public.py
+      - name: Offline tests
+        run: zsh scripts/check.sh
+      - name: Build Apple Silicon App
+        run: zsh scripts/build.sh
+      - name: Verify signature and architecture
+        run: |
+          codesign --verify --strict "dist/CC登录器.app"
+          file "dist/CC登录器.app/Contents/MacOS/CCGuard" | tee /tmp/ccguard-architecture.txt
+          grep -q arm64 /tmp/ccguard-architecture.txt
