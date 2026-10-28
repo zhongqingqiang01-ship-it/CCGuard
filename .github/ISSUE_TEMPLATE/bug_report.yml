@@ -1,0 +1,23 @@
+name: Bug report / 问题反馈
+description: Report behavior with sanitized information only.
+body:
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check / 隐私检查
+      options:
+        - label: I removed real IPs, node names, credentials, account data, private paths and conversation contents.
+          required: true
+  - type: input
+    id: version
+    attributes:
+      label: App and macOS versions
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Steps, expected behavior and observed behavior
+      description: Do not paste complete logs or personal screenshots. Use documentation IP ranges for examples.
+    validations:
+      required: true
